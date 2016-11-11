@@ -1,0 +1,5 @@
+# Compiled files
+*.tfstate
+*.tfstate.backup
+*.cfg
+*.conf
