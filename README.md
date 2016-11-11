@@ -18,3 +18,6 @@ Apply changes.
 * HAProxy for redis load balancing 
 
 All nodes can be scaled up or down.
+
+> *Note*: please ensure change the volumes locations before running
+> Also bear in mind that the way the config files are rendered the `\r\n` dont get escaped properly so if haproxy is not work just make sure it matches the tpl file. I am working on a solution for that.
