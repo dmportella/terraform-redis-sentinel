@@ -55,7 +55,7 @@ resource "docker_container" "redis-sentinel" {
 		read_only = false
 	}
 
-	command = ["redis-server", "/usr/local/etc/redis/sentinel.conf", "--sentinel"]
+	command = ["redis-server", "/usr/local/etc/redis/sentinel.${count.index+1}.conf", "--sentinel"]
 }
 
 resource "docker_container" "haproxy-redis-lb" {
@@ -84,7 +84,15 @@ resource "null_resource" "wait" {
 	}
 
 	provisioner "local-exec" {
-		command = "echo \"${data.template_file.redis_sentinel_config.rendered}\" > ./config/sentinel/sentinel.conf"
+		command = "echo \"${data.template_file.redis_sentinel_config.rendered}\" > ./config/sentinel/sentinel.1.conf"
+	}
+
+	provisioner "local-exec" {
+		command = "echo \"${data.template_file.redis_sentinel_config.rendered}\" > ./config/sentinel/sentinel.2.conf"
+	}
+
+	provisioner "local-exec" {
+		command = "echo \"${data.template_file.redis_sentinel_config.rendered}\" > ./config/sentinel/sentinel.3.conf"
 	}
 
 	provisioner "local-exec" {
